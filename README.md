@@ -2,7 +2,7 @@
 
 GOAL: find the pattern in the bug.txt file in the landscape.txt file
 
-APPROACH:
+APPROACHES:
 
 sliding_window_perfect_match.py:  
 
