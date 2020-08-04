@@ -1,12 +1,12 @@
 import re
-import Levenshtein
 import time
+import sys
 
 # at the beginning:
 start_time = time.time()
 
-testfile = "landscape_complex.txt"
-trainfile = "bug.txt"
+trainfile = sys.argv[1]
+testfile = sys.argv[2]
 
 with open(trainfile) as f1:
 	bug = f1.read()
@@ -27,15 +27,14 @@ f2.close()
 string_index = 0
 match_counter = 0 
 
-#slide over test string and calculate the levenshtein distance between the bug and the substring of the same length in the text.
+#slide over test string and check the match between the bug and the substring of the same length in the text.
 while string_index < len(test):
-	lev = Levenshtein.distance(bug,test[string_index:string_index+(bug_length)])
 	#if there is a perfect match, count it skip it and go to new search start
-	if lev == 0:
+	if test[string_index:string_index+(bug_length)] == bug:
 		match_counter = match_counter+1
 		string_index = string_index + bug_length
 	#if no match, walk ahead 1 letter in the test string
-	elif lev != 0:
+	else:
 		string_index = string_index+1
 
 print("nr of bugs in test file: " + str(match_counter))
